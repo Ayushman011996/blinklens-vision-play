@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
@@ -8,14 +7,16 @@ import {
   Eye, 
   CheckCircle2, 
   XCircle,
-  Info
+  Info,
+  Gamepad2
 } from 'lucide-react';
 import TestCard from "../components/TestCard";
 import TestIntro from "../components/TestIntro";
 import TestResults from "../components/TestResults";
+import EyeTestGames from "../components/EyeTestGames";
 import { useToast } from "@/hooks/use-toast";
 
-type TestStage = 'intro' | 'calibration' | 'acuity' | 'astigmatism' | 'color' | 'results';
+type TestStage = 'intro' | 'calibration' | 'acuity' | 'astigmatism' | 'color' | 'games' | 'results';
 
 const VisionTest = () => {
   const navigate = useNavigate();
@@ -29,7 +30,6 @@ const VisionTest = () => {
     estimatedPrescription: { right: '', left: '' }
   });
   
-  // Update progress based on current stage
   useEffect(() => {
     switch(stage) {
       case 'intro':
@@ -39,12 +39,15 @@ const VisionTest = () => {
         setProgress(10);
         break;
       case 'acuity':
-        setProgress(40);
+        setProgress(30);
         break;
       case 'astigmatism':
-        setProgress(70);
+        setProgress(50);
         break;
       case 'color':
+        setProgress(70);
+        break;
+      case 'games':
         setProgress(90);
         break;
       case 'results':
@@ -75,7 +78,9 @@ const VisionTest = () => {
         setStage('color');
         break;
       case 'color':
-        // Simulate test results
+        setStage('games');
+        break;
+      case 'games':
         setResults({
           acuity: { right: 20, left: 25 },
           astigmatism: { right: true, left: false },
@@ -248,7 +253,6 @@ const VisionTest = () => {
                     <div className="flex flex-col items-center justify-center p-8 bg-white rounded-xl shadow-inner">
                       <div className="w-64 h-64 bg-green-100 rounded-full flex items-center justify-center relative overflow-hidden">
                         <div className="absolute inset-0">
-                          {/* Simulated Ishihara test pattern */}
                           {Array.from({ length: 200 }).map((_, i) => (
                             <div 
                               key={i}
@@ -285,6 +289,16 @@ const VisionTest = () => {
                     </div>
                   </div>
                 }
+              />
+            )}
+
+            {stage === 'games' && (
+              <TestCard
+                title="Vision Games"
+                instruction="Let's have some fun while testing your visual skills!"
+                icon={<Gamepad2 className="h-8 w-8 text-brand-blue" />}
+                onNext={handleNextStage}
+                content={<EyeTestGames />}
               />
             )}
 
