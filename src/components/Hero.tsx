@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Eye, Activity, Glasses } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -19,16 +20,24 @@ const Hero = () => {
               BlinkLens uses advanced AI technology to help you check your eyesight and estimate your lens power - all through a simple, interactive game.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                className="bg-brand-blue hover:bg-brand-dark-blue text-white text-lg px-6 py-6"
-                size="lg"
-              >
-                Start Free Test <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
+              <Link to="/test">
+                <Button 
+                  className="bg-brand-blue hover:bg-brand-dark-blue text-white text-lg px-6 py-6"
+                  size="lg"
+                >
+                  Start Free Test <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
               <Button 
                 variant="outline"
                 className="border-brand-blue text-brand-blue hover:bg-brand-blue/10 text-lg px-6 py-6"
                 size="lg"
+                onClick={() => {
+                  const howItWorksSection = document.getElementById('how-it-works');
+                  if (howItWorksSection) {
+                    howItWorksSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
               >
                 Learn How It Works
               </Button>

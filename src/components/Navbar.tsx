@@ -3,10 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Menu, X, Eye } from 'lucide-react';
 import { cn } from "@/lib/utils";
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,9 +40,11 @@ const Navbar = () => {
           <a href="#how-it-works" className="text-brand-dark-gray hover:text-brand-blue transition-colors">How It Works</a>
           <a href="#features" className="text-brand-dark-gray hover:text-brand-blue transition-colors">Features</a>
           <a href="#testimonials" className="text-brand-dark-gray hover:text-brand-blue transition-colors">Results</a>
-          <Button className="bg-brand-blue hover:bg-brand-dark-blue text-white">
-            Try Vision Test
-          </Button>
+          <Link to="/test">
+            <Button className="bg-brand-blue hover:bg-brand-dark-blue text-white">
+              Try Vision Test
+            </Button>
+          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -85,12 +89,16 @@ const Navbar = () => {
             >
               Results
             </a>
-            <Button 
-              className="w-full bg-brand-blue hover:bg-brand-dark-blue text-white"
+            <Link 
+              to="/test" 
               onClick={() => setIsMenuOpen(false)}
             >
-              Try Vision Test
-            </Button>
+              <Button 
+                className="w-full bg-brand-blue hover:bg-brand-dark-blue text-white"
+              >
+                Try Vision Test
+              </Button>
+            </Link>
           </div>
         </div>
       )}
